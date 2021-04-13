@@ -5,15 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/style/reset.css">
+    <link rel="stylesheet" href="/style/layout.css">
+    <link rel="stylesheet" href="/style/base.css">
+    <link rel="stylesheet" href="/style/modules.css">
 </head>
 <body>
+    <header>
+        <h1>Best Books!</h1>
+      
+        <nav>
+            <ul>
+
+            </ul>
+        </nav>
+    </header>
     <main class="container-show">
-        <% search.forEach( book => { %>
+   
+             <% search.forEach( book => { %>
+                <div class="show">
             <img src="<%=book.image%>" >
-            <h2><%= book.title %></h2>
-            <h3><%= book.author %> </h3>
-            <p><%= book.description %></p>
+            <h2 class="title"><%= book.title %></h2>
+            <h3 class="author"><%= book.author %> </h3>
+            <p class="desc"><%= book.description %></p>
+        </div>
         <% }) %>
+  
+       
     </main>
 </body>
 </html>

@@ -12,12 +12,13 @@ margin-bottom: 10px;
 }
 main{
     font-size: 20px;
-    display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-items: center;
-	align-content: center;
+    width: 960px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
 }
 body{
     background-color: gray;

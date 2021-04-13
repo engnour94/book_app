@@ -25,9 +25,9 @@
              <% search.forEach( book => { %>
                 <div class="show">
             <img src="<%=book.image%>" >
-            <h2><%= book.title %></h2>
-            <h3><%= book.author %> </h3>
-            <p><%= book.description %></p>
+            <h2 class="title"><%= book.title %></h2>
+            <h3 class="author"><%= book.author %> </h3>
+            <p class="desc"><%= book.description %></p>
         </div>
         <% }) %>
   

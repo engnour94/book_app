@@ -1,0 +1,23 @@
+.show{
+height: 600px;
+width: 500px;
+border:black 1px solid;
+overflow: auto;
+background-color: blanchedalmond;
+margin-bottom: 50px;
+}
+img{
+    width: 200px;
+    height: 320px;
+}
+
+
+.container-show div{
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+	align-content: space-around;
+    padding: 15px 10px  ;
+}

@@ -1,28 +1,53 @@
 'use strict';
+
 // Application Dependencies
-require('dotenv').config();
 const express = require('express');
+
+
+// Environment variables
+require('dotenv').config();
+
+
+// Application Setup
 const PORT = process.env.PORT || 3030;
 const server = express();
 
+
+// Express middleware
+server.use(express.urlencoded({extended:true}));
+
+// Specify a directory for static resources
+server.use(express.static('./public/'));
 // server.use('/public', express.static('public')); // if I put in css link ./public/styles.....
 
-server.use(express.static('./public/'));
-server.use(express.urlencoded({extended:true}));
+
+// Set the view engine for server-side templating
 server.set('view engine', 'ejs');
 
+
+// client-side HTTP request library
 const superagent = require('superagent');
-server.get('/searches/new', (req, res) => res.render('pages/searches/new'));
 
-// app.post('/searches', createSearch);
 
-server.get('/hello',(req,res)=>{
+// API Routes
+
+server.get( '/', homeHandler );
+// server.get( '/hello', helloHandler );
+server.get( '/searches/new', newSearch );
+server.post('/searches', searchHandler);
+
+
+// HELPER FUNCTIONS
+
+function homeHandler (req,res){
     res.render('pages/index');
-});
-
+}
+function newSearch (req, res){
+    res.render('pages/searches/new');
+}
 
 // http://localhost:3000/searches
-server.post('/searches', searchHandler);
+
 function searchHandler(request, response) {
     // let url = 'https://www.googleapis.com/books/v1/volumes?q=inauthor:noor&maxResults=10';
     // superagent (url).then (bookData=>{
@@ -68,7 +93,7 @@ function Book(data){
 
 
 // Catch-all
-// server.get('*', (req, res) => res.status(404).send('This route not exists'));
+server.get('*', (req, res) => res.status(404).send('This route does not exists'));
 
 server.listen(PORT,()=>{
     console.log(`listening on port ${PORT}`);

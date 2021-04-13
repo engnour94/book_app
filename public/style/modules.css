@@ -1,3 +1,32 @@
 h1{
-    background-color: gray;
+    background-color: black;
+    height: 70px;
+    width: 960px;
+    color: white;
+    
+padding-left: 20px;
+line-height: 70px;
+font-size: 30px;
+margin-bottom: 10px;
+
 }
+main{
+    font-size: 20px;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: center;
+}
+body{
+    background-color: gray;
+    height: 100vh;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+	align-content: space-around
+}
+

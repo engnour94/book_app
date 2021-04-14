@@ -39,7 +39,7 @@ server.get( '/', homeHandler );
 // server.get( '/hello', helloHandler );
 server.get( '/searches/new', newSearch );
 server.post('/searches', searchHandler);
-server.post('/books/:id', detailsHandler);
+server.get('/books/:id', detailsHandler);
 server.post('/books', selectHandler);
 server.get('*', errorHandler);
 
@@ -112,14 +112,16 @@ function selectHandler(req,res){
     //     });
     client.query (SQL,safeValues).then (result=>{
         console.log (result.rows);
-        res.redirect(`/`);
+        res.redirect(`/books/${result.rows[0].id}`);
+        // res.redirect(`/`);
         // res.redirect('/books');
     });
 
 }
 
 function Book(data){
-    this.title = data.volumeInfo.title || 'Unknown';
+    this.title = data.volumeInfo.title ? data.volumeInfo.title : 'Not available';
+    // this.title = data.volumeInfo.title || 'Unknown';
     this.author=data.volumeInfo.authors || ['Unknown'];
     // if (!data.volumeInfo.imageLinks){
     //     this.image = 'https://i.imgur.com/J5LVHEL.jpg';

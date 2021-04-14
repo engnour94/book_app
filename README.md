@@ -90,3 +90,30 @@ Finish time: 4:00 am
 
 Actual time needed to complete: around 1 hour
 
+**lab13**
+
+Number and name of feature: Feature 1 update
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 3:45 pm
+
+Finish time: 5:45 pm
+
+Actual time needed to complete:  1 hour and 30 min
+
+***
+
+
+Number and name of feature: Feature 2   delete
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 5:50 pm
+
+Finish time: 6:05 pm
+
+Actual time needed to complete: around 15 min
+
+***
+

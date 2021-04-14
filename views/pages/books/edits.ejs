@@ -1,0 +1,22 @@
+<article id="updateForm">
+    <h3>Update books Form</h3>
+    <fieldset>
+    <form class="" action= "/books/<%=item.id%>?_method=put" method="post">
+        <input type="text" name="image" value="<%=item.image%> " />
+        <input type="text" name="title" value="<%=item.title %> " />
+        <input type="text" name="author" value="<%=item.author %> " />
+        <input type="text" name="description" value="<%=item.description %> " />
+        <input type="text" name="isbn" value="<%=item.isbn %> " />
+        <input type="text" name="book_shelf" value="<%= item.book_shelf %> " />
+        <button class=""  type="submit"> Update This Book</button>
+    </form>
+</fieldset>
+
+</article>
+
+
+<fieldset>
+    <form action= "/books/<%=item.id%>?_method=delete" method="post">
+        <button type="submit">Delete</button>
+    </form>
+</fieldset>

@@ -3,6 +3,7 @@
 // Application Dependencies
 const express = require('express');
 const pg = require('pg');
+const methodOverride = require('method-override');
 
 // Environment variables
 require('dotenv').config();
@@ -17,8 +18,9 @@ const server = express();
 server.use(express.urlencoded({extended:true}));
 
 // Specify a directory for static resources
-server.use(express.static('./public/'));
+server.use(express.static('./public'));
 // server.use('/public', express.static('public')); // if I put in css link ./public/styles.....
+server.use(methodOverride('_method'));
 
 // Database Setup
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL,
@@ -41,6 +43,8 @@ server.get( '/searches/new', newSearch );
 server.post('/searches', searchHandler);
 server.get('/books/:id', detailsHandler);
 server.post('/books', selectHandler);
+server.put('/books/:id',updateBookHandler);
+server.delete('/books/:id',deleteBookHandler);
 server.get('*', errorHandler);
 
 function homeHandler (req,res){
@@ -73,7 +77,7 @@ function searchHandler(request, response) {
     // request.body.search[1] === 'title' ? url += `+intitle:${request.body.search[0]}` : url += `+inauthor:${request.body.search[0]}`;
     if (request.body.search[1] === 'title') { url += `+intitle:${request.body.search[0]}&maxResults=10`; } //[ 'nour' [0], 'title'[1] ]
     if (request.body.search[1] === 'author') { url += `+inauthor:${request.body.search[0]}&maxResults=10`; } //[ 'nour', 'author' ] after console.log
- console.log('urllllllllllllllll',url);
+    //  console.log('urllllllllllllllll',url);
     superagent.get(url)
         .then(apiData => {
             // console.log(apiData.body.items);
@@ -104,7 +108,7 @@ function selectHandler(req,res){
     console.log(req.body);
     let SQL = `INSERT INTO books (title, author,isbn, image, description,  book_shelf) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *;`;
     let safeValues = [req.body.title,req.body.author,req.body.isbn,req.body.image,req.body.description,req.body. book_shelf];
-    console.log('hhhhhhhhhhhhhhhhhhhh',safeValues);
+    // console.log('hhhhhhhhhhhhhhhhhhhh',safeValues);
     // client.query(SQL,safeValues)
     //     .then(result=>{
     //         console.log(result.rows);
@@ -140,7 +144,27 @@ function Book(data){
 
 }
 
+function updateBookHandler (req,res){
+    // console.log("bodyyyyyyyy",req.body);
+    // console.log('paraaaaaaams',req.params);
 
+    let {title, author,isbn, image, description, book_shelf} = req.body;
+    title, author,isbn, image, description, book_shelf;
+    let SQL = `UPDATE books SET title=$1, author = $2, isbn=$3,image=$4,description=$5, book_shelf=$6 WHERE id=$7;`;
+    let safeValues = [title,author,isbn,image,description,book_shelf,req.params.id];
+    client.query(SQL,safeValues)
+        .then(()=>{
+            res.redirect(`/books/${req.params.id}`);
+        });
+}
+
+
+function deleteBookHandler(req,res){
+    let SQL = `DELETE FROM books WHERE id=$1;`;
+    let value = [req.params.id];
+    client.query(SQL,value)
+        .then(res.redirect('/'));
+}
 // Catch-all
 function errorHandler (req, res) {
     res.status(404).send('This route does not exists');

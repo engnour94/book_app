@@ -22,8 +22,8 @@ server.use(express.static('./public/'));
 
 // Database Setup
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL,
-    // ssl:{rejectUnauthorized: false
-    // }
+    ssl:{rejectUnauthorized: false
+    }
 
 });
 // Set the view engine for server-side templating

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <%- include('../layout/head') %>
+<!-- <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,10 @@
 <link rel="stylesheet" href="/style/layout.css">
 <link rel="stylesheet" href="/style/base.css">
 <link rel="stylesheet" href="/style/modules.css">
-</head>
+</head> -->
 <body>
-    <header>
+    <%- include('../layout/header') %>
+    <!-- <header>
         <h1>Best Books!</h1>
       
         <nav>
@@ -19,11 +21,43 @@
 
             </ul>
         </nav>
-    </header>
+    </header> -->
    <main>
     <h2>Hello everyone, our website for book's searching</h2>
     <p id="mainp"> you can search about books by <a href="/searches/new">clicking here</a></p>
+
+    <section>
+        <p>
+            Total Books: <%= booksResults.length %>
+        </p>
+<% booksResults.forEach(book => { %>
+    
+        <div class="card">
+            <img src='<%=book.image %>' alt="Book Cover">
+            <h2>
+                <%= book.title %>
+            </h2>
+            <h3>
+                <%= book.author %>
+            </h3>
+            <!-- <a href="/books/<= book.id %>">View Details</a> -->
+        </div>
+    <form class="" action= <%=`/books/${book.id}` %> method="post">
+    
+
+        <button class=""  type="submit">View Details</button>
+    </form>
+ 
+  <% }) %>
+        
+    </section>
    </main>
-   <footer></footer>
+
+    <%- include('../layout/footer') %>
+  
+   <script
+  src="https://kit.fontawesome.com/c6a4f38983.js"
+  crossorigin="anonymous"
+></script>
 </body>
 </html>

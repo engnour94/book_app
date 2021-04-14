@@ -22,8 +22,8 @@ server.use(express.static('./public/'));
 
 // Database Setup
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL,
-    ssl:{rejectUnauthorized: false
-    }
+    // ssl:{rejectUnauthorized: false
+    // }
 
 });
 // Set the view engine for server-side templating
@@ -73,13 +73,13 @@ function searchHandler(request, response) {
     // request.body.search[1] === 'title' ? url += `+intitle:${request.body.search[0]}` : url += `+inauthor:${request.body.search[0]}`;
     if (request.body.search[1] === 'title') { url += `+intitle:${request.body.search[0]}&maxResults=10`; } //[ 'nour' [0], 'title'[1] ]
     if (request.body.search[1] === 'author') { url += `+inauthor:${request.body.search[0]}&maxResults=10`; } //[ 'nour', 'author' ] after console.log
-
+ console.log('urllllllllllllllll',url);
     superagent.get(url)
         .then(apiData => {
             // console.log(apiData.body.items);
             let bookData = apiData.body.items;
             let book = bookData.map(val => new Book(val));//book is an array
-            // console.log(book);
+            console.log(book);
             response.render('pages/searches/show', { search: book });
         }).catch(error => {
             // console.log('ERROR', error);
@@ -120,6 +120,8 @@ function selectHandler(req,res){
 }
 
 function Book(data){
+    // console.log(data.volumeInfo);
+    // console.log(data.industryIdentifiers);
     this.title = data.volumeInfo.title ? data.volumeInfo.title : 'Not available';
     // this.title = data.volumeInfo.title || 'Unknown';
     this.author=data.volumeInfo.authors || ['Unknown'];
@@ -133,7 +135,7 @@ function Book(data){
         ? data.volumeInfo.imageLinks.thumbnail ||'https://i.imgur.com/J5LVHEL.jpg'
         : 'https://i.imgur.com/J5LVHEL.jpg';
     this.description=data.volumeInfo.description || 'Not available !';
-    this.isbn= data.volumeInfo.industryIdentifiers[0].identifier;
+    this.isbn= data.volumeInfo.industryIdentifiers?data.volumeInfo.industryIdentifiers[0].identifier ||data.volumeInfo.industryIdentifiers :'Not available !' ; //there are some isbn is not in an array like obj and strings
     this.book_shelf = data.volumeInfo.categories ? data.volumeInfo.categories.join(', ') : 'Not available';
 
 }

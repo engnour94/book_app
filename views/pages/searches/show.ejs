@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <%- include('../../layout/head') %>
+<!-- <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
     <link rel="stylesheet" href="/style/layout.css">
     <link rel="stylesheet" href="/style/base.css">
     <link rel="stylesheet" href="/style/modules.css">
-</head>
+</head> -->
 <body>
     <header>
         <h1>Best Books!</h1>
@@ -27,11 +28,25 @@
             <img src="<%=book.image%>" >
             <h2 class="title"><%= book.title %></h2>
             <h3 class="author"><%= book.author %> </h3>
+            
             <p class="desc"><%= book.description %></p>
+            <p>ISBN   : <%= book.isbn  %> </p>
+            <p> Bookshelf   : <%= book.book_shelf  %> </p>
+
+            <form class="" action= "/books" method="post">
+                <input type="hidden" name="image" value="<%= book.image%> " />
+                <input type="hidden" name="title" value="<%= book.title %> " />
+                <input type="hidden" name="author" value="<%= book.author %> " />
+                <input type="hidden" name="description" value="<%= book.description %> " />
+                <input type="hidden" name="isbn" value="<%= book.isbn %> " />
+                <input type="hidden" name="book_shelf" value="<%= book.book_shelf %> " />
+                <button class=""  type="submit">Select This Book</button>
+            </form>
         </div>
         <% }) %>
   
        
     </main>
+ <%- include('../../layout/footer')%>
 </body>
 </html>
